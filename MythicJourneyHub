@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Login</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f4f4f4;
+    }
+
+    /* Login container */
+    .login-container {
+      text-align: center;
+      background: white;
+      padding: 20px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Google login button */
+    #googleLoginButton {
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    #googleLoginButton:hover {
+      background-color: #357ae8;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Sign in</h1>
+    <button id="googleLoginButton">Sign in with Google</button>
+  </div>
+
+  <script type="module">
+    // Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAmFEoPq9jImwihNowHeHW2QMWUKTypum8",
+      authDomain: "login-38b63.firebaseapp.com",
+      projectId: "login-38b63",
+      storageBucket: "login-38b63.appspot.com",
+      messagingSenderId: "293096426764",
+      appId: "1:293096426764:web:36c096ca668d18cbfd0d29",
+      measurementId: "G-XZSNZ3RH8J"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Google login function
+    document.getElementById("googleLoginButton").addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          alert(`Welcome ${user.displayName}!`);
+          console.log("User info:", user);
+        })
+        .catch((error) => {
+          console.error("Error during login:", error);
+          alert("Login failed. Please try again.");
+        });
+    });
+  </script>
+</body>
+</html>
